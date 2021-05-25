@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class ConferenceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:manager')->only([
+            'create', 'store',
+        ]);
+    }
+
     /**
      * Display a listing of the conferences.
      *
@@ -40,9 +47,7 @@ class ConferenceController extends Controller
      */
     public function store(ConferenceRequest $request)
     {
-        Conference::create($request->validated() + [
-            'user_id' => 1,
-        ]);
+        Conference::create($request->validated());
 
         flash('Конференция успешно добавлена!', 'success');
 
