@@ -43,7 +43,7 @@ class CreateConferencesTest extends TestCase
     }
 
     /** @test */
-    public function a_conference_requires_a_title()
+    public function a_conference_requires_a_topic()
     {
         $this->loginAs('manager');
 
