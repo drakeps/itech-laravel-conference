@@ -30,4 +30,9 @@ class Conference extends Model
     {
         return $this->hasMany(Member::class);
     }
+
+    public function acceptedLectures()
+    {
+        return $this->lectures()->accepted()->get();
+    }
 }

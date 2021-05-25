@@ -11,6 +11,14 @@ class Lecture extends Model
 
     protected $fillable = ['topic', 'description'];
 
+    protected $attributes = [
+        'accepted' => false,
+    ];
+
+    protected $casts = [
+        'accepted' => 'boolean',
+    ];
+
     /**
      * Get the conference that owns the Lecture
      *
@@ -29,5 +37,23 @@ class Lecture extends Model
     public function member()
     {
         return $this->hasOne(Member::class);
+    }
+
+    public function accept()
+    {
+        $this->accepted = true;
+
+        $this->save();
+    }
+
+    /**
+     * Return accepted lectures
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAccepted($query)
+    {
+        return $query->where('accepted', true);
     }
 }

@@ -5,7 +5,7 @@
     
     <h3>Доклады</h3>
 
-    @if ($conference->lectures->count())
+    @if ($lectures->count())
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($conference->lectures as $lecture)
+                @foreach ($lectures as $lecture)
                     <tr>
                         <td>{{ $lecture->topic }}</td>
                         <td>{{ $lecture->member->name }}</td>

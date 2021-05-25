@@ -28,4 +28,13 @@ class LectureFactory extends Factory
             'description'   => $this->faker->sentence(),
         ];
     }
+
+    public function accepted()
+    {
+        return $this->state(function () {
+            return [
+                'accepted' => true,
+            ];
+        });
+    }
 }

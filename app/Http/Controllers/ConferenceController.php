@@ -62,7 +62,13 @@ class ConferenceController extends Controller
      */
     public function show(Conference $conference)
     {
-        return view('conference.show', compact('conference'));
+        if (auth()->check() && auth()->user()->hasRole('manager')) {
+            $lectures = $conference->lectures;
+        } else {
+            $lectures = $conference->acceptedLectures();
+        }
+
+        return view('conference.show', compact('conference', 'lectures'));
     }
 
     /**
