@@ -11,7 +11,7 @@ class ConferenceController extends Controller
     public function __construct()
     {
         $this->middleware('role:manager')->only([
-            'create', 'store',
+            'create', 'store', 'edit', 'update', 'destroy',
         ]);
     }
 
