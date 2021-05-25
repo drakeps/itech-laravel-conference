@@ -22,7 +22,6 @@ class ConferenceFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'    => UserFactory::new (),
             'topic'      => $this->faker->sentence(),
             'start_date' => $this->faker->date(),
         ];
