@@ -57,19 +57,19 @@ class ConferenceController extends Controller
     /**
      * Display the specified conference.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Conference  $conference
+     * @return \Illuminate\View\Views
      */
-    public function show($id)
+    public function show(Conference $conference)
     {
-        //
+        return view('conference.show', compact('conference'));
     }
 
     /**
      * Show the form for editing the specified conference.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Conference  $conference
+     * @return \Illuminate\View\Views
      */
     public function edit(Conference $conference)
     {
@@ -95,8 +95,8 @@ class ConferenceController extends Controller
     /**
      * Remove the specified conference from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Conference  $conference
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Conference $conference)
     {

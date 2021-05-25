@@ -24,4 +24,14 @@ class ReadConferencesTest extends TestCase
             $response->assertSee($conference->start_date);
         }
     }
+
+    /** @test */
+    public function a_user_can_read_a_single_conferences()
+    {
+        $conference = Conference::factory()->create();
+
+        $this->get(route('conferences.show', $conference))
+            ->assertSuccessful()
+            ->assertSee($conference->topic);
+    }
 }
