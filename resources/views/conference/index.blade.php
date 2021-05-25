@@ -11,7 +11,6 @@
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Тема</th>
                     <th scope="col">Дата проведения</th>
                     <th scope="col"></th>
@@ -20,7 +19,6 @@
             <tbody>
                 @foreach ($conferences as $conference)
                     <tr>
-                        <th scope="row">{{ $conference->id }}</th>
                         <td>{{ $conference->topic }}</td>
                         <td>{{ $conference->start_date }}</td>
                         <td>

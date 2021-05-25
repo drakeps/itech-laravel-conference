@@ -23,8 +23,9 @@ class LectureFactory extends Factory
     public function definition()
     {
         return [
-            'topic'         => $this->faker->sentence(),
             'conference_id' => Conference::factory(),
+            'topic'         => $this->faker->sentence(),
+            'description'   => $this->faker->sentence(),
         ];
     }
 }

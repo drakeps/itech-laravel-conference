@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Conference;
+use App\Models\Lecture;
+use App\Models\Member;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,7 +21,15 @@ class DatabaseSeeder extends Seeder
     {
         $this->clearTables();
 
-        Conference::factory(10)->create();
+        $conferences = Conference::factory(10)->create();
+
+        foreach ($conferences as $conference) {
+            Lecture::factory()
+                ->count(5)
+                ->has(Member::factory())
+                ->for($conference)
+                ->create();
+        }
 
         $this->call(UserSeeder::class);
     }
@@ -31,6 +41,7 @@ class DatabaseSeeder extends Seeder
         Role::truncate();
         User::truncate();
         Conference::truncate();
+        Lecture::truncate();
 
         Schema::enableForeignKeyConstraints();
     }
