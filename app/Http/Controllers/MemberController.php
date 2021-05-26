@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberRequest;
 use App\Models\Conference;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -26,10 +27,14 @@ class MemberController extends Controller
      */
     public function store(Conference $conference, MemberRequest $request)
     {
-        $conference->members()->create($request->only(['firstname', 'lastname', 'email', 'unit']));
+        $member = $conference->members()->create($request->only(['firstname', 'lastname', 'email', 'unit']));
 
         if ($request->become_speaker) {
-            $conference->lectures()->create($request->only(['topic', 'description']));
+            $conference
+                ->lectures()
+                ->create($request->only(['topic', 'description']))
+                ->member()
+                ->save($member);
         }
 
         return redirect()->route('conferences.index');

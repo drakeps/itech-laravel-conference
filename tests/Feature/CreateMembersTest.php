@@ -25,16 +25,15 @@ class CreateMembersTest extends TestCase
             'description'    => 'Описание доклада',
         ]);
 
-        $member  = Member::first();
         $lecture = Lecture::first();
 
-        $this->assertNotNull($member);
         $this->assertNotNull($lecture);
+        $this->assertNotNull($lecture->member);
 
-        $this->assertEquals($member->firstname, 'John');
-        $this->assertEquals($member->lastname, 'Doe');
-        $this->assertEquals($member->email, 'john@doe.com');
-        $this->assertEquals($member->unit, 'Департамент разработки');
+        $this->assertEquals($lecture->member->firstname, 'John');
+        $this->assertEquals($lecture->member->lastname, 'Doe');
+        $this->assertEquals($lecture->member->email, 'john@doe.com');
+        $this->assertEquals($lecture->member->unit, 'Департамент разработки');
 
         $this->assertEquals($lecture->topic, 'Тема доклада');
         $this->assertEquals($lecture->description, 'Описание доклада');
