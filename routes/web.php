@@ -18,6 +18,8 @@ Route::resource('conferences', ConferenceController::class);
 Route::get('conferences/{conference}/members/create', [MemberController::class, 'create'])->name('members.create');
 Route::post('conferences/{conference}/members', [MemberController::class, 'store'])->name('members.store');
 
+Route::get('conferences/{conference}/members', [MemberController::class, 'index'])->name('members.index');
+
 Route::get('lectures/{lecture}', [LectureController::class, 'show'])->name('lectures.show');
 
 Route::middleware('role:manager')->group(function () {

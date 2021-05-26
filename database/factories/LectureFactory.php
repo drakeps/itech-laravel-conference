@@ -37,4 +37,13 @@ class LectureFactory extends Factory
             ];
         });
     }
+
+    public function rejected()
+    {
+        return $this->state(function () {
+            return [
+                'accepted' => false,
+            ];
+        });
+    }
 }

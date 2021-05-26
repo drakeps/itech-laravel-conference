@@ -8,6 +8,16 @@ use App\Models\Conference;
 class MemberController extends Controller
 {
     /**
+     * Display a listing of the members.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(Conference $conference)
+    {
+        return view('members.index', compact('conference'));
+    }
+
+    /**
      * Show the form for creating a new lecture.
      *
      * @return \Illuminate\View\Views
@@ -35,6 +45,8 @@ class MemberController extends Controller
                 ->save($member);
         }
 
-        return redirect()->route('conferences.index');
+        flash('Ваша заявка успешно создана', 'success');
+
+        return redirect()->route('conferences.show', $conference);
     }
 }

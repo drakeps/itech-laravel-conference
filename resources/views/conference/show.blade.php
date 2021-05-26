@@ -3,7 +3,11 @@
 @section('content')
     <h1>{{ $conference->topic }}</h1> 
     
-    <a class="btn btn-primary" href="{{ route('members.create', $conference) }}">Хочу участвовать</a> <hr>
+    <div class="my-3">
+        <a class="btn btn-primary" href="{{ route('members.index', $conference) }}">Список участников</a>
+
+        <a class="btn btn-success" href="{{ route('members.create', $conference) }}">Хочу участвовать</a>
+    </div><hr>
 
     <h3>Доклады</h3>
 
