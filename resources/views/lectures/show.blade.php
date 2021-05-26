@@ -27,4 +27,6 @@
             >Отклонить</x-form-button>
         @endif
     @endrole
+
+    <a class="btn btn-outline-info" href="{{ route('conferences.show', $lecture->conference) }}">К списку докладов</a>
 @endsection

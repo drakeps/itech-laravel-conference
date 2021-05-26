@@ -66,5 +66,6 @@
         </div>
     
         <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        <a class="btn btn-outline-info" href="{{ route('conferences.show', $conference) }}">К списку докладов</a>
     </form>
 @endsection
