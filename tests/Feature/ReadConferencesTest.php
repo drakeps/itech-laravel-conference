@@ -26,7 +26,7 @@ class ReadConferencesTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_read_a_single_conferences()
+    public function a_user_can_read_a_single_conference()
     {
         $conference = Conference::factory()->create();
 

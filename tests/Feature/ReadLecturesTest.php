@@ -61,4 +61,47 @@ class ReadLecturesTest extends TestCase
             $response->assertDontSee($lecture->topic);
         }
     }
+
+    /** @test */
+    public function a_user_can_read_a_single_accepted_lecture()
+    {
+        $lecture = Lecture::factory()
+            ->accepted()
+            ->for(Conference::factory())
+            ->has(Member::factory())
+            ->create();
+
+        $this->get(route('lectures.show', $lecture))
+            ->assertSuccessful()
+            ->assertSee($lecture->topic)
+            ->assertSee($lecture->description)
+            ->assertSee($lecture->member->fullName)
+            ->assertSee($lecture->member->unit);
+    }
+
+    /** @test */
+    public function manager_can_read_a_single_new_or_rejected_lecture()
+    {
+        $this->loginAs('manager');
+
+        $lecture = Lecture::factory()
+            ->for(Conference::factory())
+            ->has(Member::factory())
+            ->create();
+
+        $this->get(route('lectures.show', $lecture))
+            ->assertSuccessful();
+    }
+
+    /** @test */
+    public function a_user_cannot_read_a_single_new_or_rejected_lecture()
+    {
+        $lecture = Lecture::factory()
+            ->for(Conference::factory())
+            ->has(Member::factory())
+            ->create();
+
+        $this->get(route('lectures.show', $lecture))
+            ->assertForbidden();
+    }
 }

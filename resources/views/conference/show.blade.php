@@ -22,7 +22,9 @@
             <tbody>
                 @foreach ($lectures as $lecture)
                     <tr class="{{ $lecture->rejected ? 'table-danger' : '' }}">
-                        <td>{{ $lecture->topic }}</td>
+                        <td>
+                            <a href="{{ route('lectures.show', $lecture) }}">{{ $lecture->topic }}</a>
+                        </td>
                         <td>{{ $lecture->member->fullName }}</td>
                         <td>{{ $lecture->member->unit }}</td>
                         @role('manager')
