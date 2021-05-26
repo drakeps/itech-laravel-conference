@@ -7,6 +7,7 @@
         class="form-control @if($errors->has($name)) {{ 'is-invalid' }} @endif" 
         value="{{ old($name, $value) }}" 
         placeholder="{{ $label }}"
+        {{ $attributes }}
     >
     @if ($errors->has($name))
         <div class="invalid-feedback">{{ $errors->first($name) }}</div>

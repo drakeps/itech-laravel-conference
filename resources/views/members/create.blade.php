@@ -3,7 +3,7 @@
 @section('content')
     <h1>Регистрация на конференцию</h1>
 
-    <form method="POST" action="{{ route('members.store', $conference) }}">
+    <form method="POST" action="{{ route('members.store', $conference) }}" x-data="{ isSpeaker: '{{ old('become_speaker') }}' }">
         @csrf
 
         <div class="form-row">
@@ -12,6 +12,7 @@
                     name="firstname"
                     type="text"
                     label="Имя"
+                    required
                 />
             </div>
 
@@ -20,6 +21,7 @@
                     name="lastname"
                     type="text"
                     label="Фамилия"
+                    required
                 />
             </div>
 
@@ -28,6 +30,7 @@
                     name="email"
                     type="email"
                     label="Email"
+                    required
                 />
             </div>
 
@@ -36,19 +39,20 @@
                     name="unit"
                     type="text"
                     label="Департамент разработки"
+                    required
                 />
             </div>
 
             <div class="form-group">
                 <x-forms.checkbox
                     name="become_speaker"
-                    checked="{{ old('become_speaker') }}"
                     value="1"
                     label="Хочу быть докладчиком"
+                    x-model="isSpeaker"
                 />
             </div>
 
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12" x-show="isSpeaker">
                 <x-forms.input
                     name="topic"
                     type="text"
@@ -56,7 +60,7 @@
                 />
             </div>
 
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12" x-show="isSpeaker">
                 <x-forms.textarea
                     name="description"
                     type="text"

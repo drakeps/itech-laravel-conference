@@ -45,7 +45,7 @@ class MemberController extends Controller
                 ->save($member);
         }
 
-        flash('Ваша заявка успешно создана', 'success');
+        flash('Спасибо, Ваша заявка на участие в конференции была отправлена', 'success');
 
         return redirect()->route('conferences.show', $conference);
     }

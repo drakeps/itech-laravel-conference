@@ -6,6 +6,7 @@
         type="checkbox"
         value="{{ old($name, $value) }}"
         {{ $checked ? 'checked' : '' }}
+        {{ $attributes }}
     >
     <label class="form-check-label" for="{{ $getId }}">
         {{ $label }}
