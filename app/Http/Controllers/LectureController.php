@@ -2,36 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LectureRequest;
-use App\Models\Conference;
 use App\Models\Lecture;
 
 class LectureController extends Controller
 {
-    /**
-     * Show the form for creating a new lecture.
-     *
-     * @return \Illuminate\View\Views
-     */
-    public function create()
+    public function accept(Lecture $lecture)
     {
-        $conference = new Lecture;
+        $lecture->accept();
 
-        return view('conference.create', compact('conference'));
+        flash('Доклад подтвержден!');
+
+        return redirect()->route('conferences.show', $lecture->conference);
     }
 
-    /**
-     * Store a newly created conference in lecture.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Conference $conference, LectureRequest $request)
+    public function reject(Lecture $lecture)
     {
-        $conference->lectures()->create($request->validated());
+        $lecture->reject();
 
-        flash('Доклад успешно добавлена!', 'success');
+        flash('Доклад отклонен!');
 
-        return redirect()->route('lectures.index');
+        return redirect()->route('conferences.show', $lecture->conference);
     }
 }

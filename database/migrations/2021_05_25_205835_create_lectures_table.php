@@ -18,7 +18,7 @@ class CreateLecturesTable extends Migration
             $table->bigInteger('conference_id');
             $table->string('topic');
             $table->text('description');
-            $table->boolean('accepted');
+            $table->boolean('accepted')->nullable();
             $table->timestamps();
         });
     }

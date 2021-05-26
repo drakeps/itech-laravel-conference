@@ -11,10 +11,6 @@ class Lecture extends Model
 
     protected $fillable = ['topic', 'description'];
 
-    protected $attributes = [
-        'accepted' => false,
-    ];
-
     protected $casts = [
         'accepted' => 'boolean',
     ];
@@ -46,14 +42,25 @@ class Lecture extends Model
         $this->save();
     }
 
-    /**
-     * Return accepted lectures
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+    public function reject()
+    {
+        $this->accepted = false;
+
+        $this->save();
+    }
+
     public function scopeAccepted($query)
     {
         return $query->where('accepted', true);
+    }
+
+    public function getRejectedAttribute()
+    {
+        return $this->accepted === false;
+    }
+
+    public function getIsNewAttribute()
+    {
+        return is_null($this->accepted);
     }
 }

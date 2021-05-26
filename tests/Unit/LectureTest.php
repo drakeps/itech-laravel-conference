@@ -15,10 +15,22 @@ class LectureTest extends TestCase
     {
         $lecture = Lecture::factory()->create();
 
-        $this->assertFalse($lecture->accepted);
+        $this->assertTrue($lecture->isNew);
 
         $lecture->accept();
 
         $this->assertTrue($lecture->accepted);
+    }
+
+    /** @test */
+    public function it_reject_a_lecture()
+    {
+        $lecture = Lecture::factory()->create();
+
+        $this->assertTrue($lecture->isNew);
+
+        $lecture->reject();
+
+        $this->assertFalse($lecture->accepted);
     }
 }
