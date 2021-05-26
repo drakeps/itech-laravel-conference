@@ -14,4 +14,5 @@ Route::get('/', [ConferenceController::class, 'index'])->name('home');
 
 Route::resource('conferences', ConferenceController::class);
 
-Route::post('conferences/{conference}', [MemberController::class, 'store'])->name('members.store');
+Route::get('conferences/{conference}/members/create', [MemberController::class, 'create'])->name('members.create');
+Route::post('conferences/{conference}/members', [MemberController::class, 'store'])->name('members.store');

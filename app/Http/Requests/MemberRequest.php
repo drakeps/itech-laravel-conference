@@ -24,7 +24,12 @@ class MemberRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'firstname'   => 'required',
+            'lastname'    => 'required',
+            'email'       => 'required|email',
+            'unit'        => 'required',
+            'topic'       => 'required_if:become_speaker,1',
+            'description' => 'required_if:become_speaker,1',
         ];
     }
 }

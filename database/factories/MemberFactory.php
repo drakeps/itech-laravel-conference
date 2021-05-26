@@ -24,7 +24,8 @@ class MemberFactory extends Factory
     {
         return [
             'conference_id' => Conference::factory(),
-            'name'          => $this->faker->firstName(),
+            'firstname'     => $this->faker->firstName(),
+            'lastname'      => $this->faker->lastName(),
             'email'         => $this->faker->email,
             'unit'          => $this->faker->company,
         ];

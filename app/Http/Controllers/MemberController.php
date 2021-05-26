@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberRequest;
 use App\Models\Conference;
+use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
@@ -12,9 +13,9 @@ class MemberController extends Controller
      *
      * @return \Illuminate\View\Views
      */
-    public function create()
+    public function create(Conference $conference)
     {
-        return view('conference.create', compact('conference'));
+        return view('members.create', compact('conference'));
     }
 
     /**
@@ -25,7 +26,7 @@ class MemberController extends Controller
      */
     public function store(Conference $conference, MemberRequest $request)
     {
-        $conference->members()->create($request->only(['name', 'email', 'unit']));
+        $conference->members()->create($request->only(['firstname', 'lastname', 'email', 'unit']));
 
         if ($request->become_speaker) {
             $conference->lectures()->create($request->only(['topic', 'description']));

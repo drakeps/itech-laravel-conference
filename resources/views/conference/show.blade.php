@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{ $conference->topic }}</h1> <hr>
+    <h1>{{ $conference->topic }}</h1> 
     
+    <a class="btn btn-primary" href="{{ route('members.create', $conference) }}">Хочу участвовать</a> <hr>
+
     <h3>Доклады</h3>
 
     @if ($lectures->count())
@@ -27,6 +29,6 @@
             </tbody>
         </table>
     @else
-        Пока еще нет докладов :(
+        <div>Пока еще нет докладов :(</div>
     @endif
 @endsection

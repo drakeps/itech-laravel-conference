@@ -17,7 +17,8 @@ class CreateMembersTable extends Migration
             $table->id();
             $table->bigInteger('conference_id');
             $table->bigInteger('lecture_id')->nullable();
-            $table->string('name');
+            $table->string('firstname');
+            $table->string('lastname');
             $table->string('email');
             $table->string('unit');
             $table->timestamps();

@@ -19,7 +19,9 @@
             <tbody>
                 @foreach ($conferences as $conference)
                     <tr>
-                        <td>{{ $conference->topic }}</td>
+                        <td>
+                            <a href="{{ route('conferences.show', $conference) }}">{{ $conference->topic }}</a>
+                        </td>
                         <td>{{ $conference->start_date }}</td>
                         <td>
                             <a class="btn btn-primary" href="{{ route('conferences.edit', $conference) }}">
@@ -35,7 +37,7 @@
 
         {{ $conferences->links() }}
     @else
-        Список конференций пока пуст :(
+        <div>Список конференций пока пуст :(</div>
     @endif
 
 @endsection

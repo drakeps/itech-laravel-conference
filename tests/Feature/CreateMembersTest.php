@@ -15,10 +15,9 @@ class CreateMembersTest extends TestCase
     /** @test */
     public function a_user_can_become_a_speaker()
     {
-        $conference = Conference::factory()->create();
-
-        $this->post(route('members.store', $conference), [
-            'name'           => 'John Doe',
+        $this->createMember([
+            'firstname'      => 'John',
+            'lastname'       => 'Doe',
             'email'          => 'john@doe.com',
             'unit'           => 'Департамент разработки',
             'become_speaker' => true,
@@ -32,7 +31,8 @@ class CreateMembersTest extends TestCase
         $this->assertNotNull($member);
         $this->assertNotNull($lecture);
 
-        $this->assertEquals($member->name, 'John Doe');
+        $this->assertEquals($member->firstname, 'John');
+        $this->assertEquals($member->lastname, 'Doe');
         $this->assertEquals($member->email, 'john@doe.com');
         $this->assertEquals($member->unit, 'Департамент разработки');
 
@@ -43,12 +43,11 @@ class CreateMembersTest extends TestCase
     /** @test */
     public function a_user_can_become_a_member()
     {
-        $conference = Conference::factory()->create();
-
-        $this->post(route('members.store', $conference), [
-            'name'  => 'John Doe',
-            'email' => 'john@doe.com',
-            'unit'  => 'Департамент разработки',
+        $this->createMember([
+            'firstname' => 'John',
+            'lastname'  => 'Doe',
+            'email'     => 'john@doe.com',
+            'unit'      => 'Департамент разработки',
         ]);
 
         $member  = Member::first();
@@ -57,8 +56,72 @@ class CreateMembersTest extends TestCase
         $this->assertNull($lecture);
         $this->assertNotNull($member);
 
-        $this->assertEquals($member->name, 'John Doe');
+        $this->assertEquals($member->firstname, 'John');
+        $this->assertEquals($member->lastname, 'Doe');
         $this->assertEquals($member->email, 'john@doe.com');
         $this->assertEquals($member->unit, 'Департамент разработки');
+    }
+
+    /** @test */
+    public function a_memeber_requires_a_firstname()
+    {
+        $this->createMember(['firstname' => ''])->assertSessionHasErrors('firstname');
+    }
+
+    /** @test */
+    public function a_memeber_requires_a_lastname()
+    {
+        $this->createMember(['lastname' => ''])->assertSessionHasErrors('lastname');
+    }
+
+    /** @test */
+    public function a_memeber_requires_a_email()
+    {
+        $this->createMember(['email' => ''])->assertSessionHasErrors('email');
+    }
+
+    /** @test */
+    public function a_memeber_requires_a_valid_email()
+    {
+        $this->createMember(['email' => 'non-valid-email'])->assertSessionHasErrors('email');
+    }
+
+    /** @test */
+    public function a_memeber_requires_a_unit()
+    {
+        $this->createMember(['unit' => ''])->assertSessionHasErrors('unit');
+    }
+
+    /** @test */
+    public function it_requires_a_topic_if_member_is_speaker()
+    {
+        $this->createMember(['topic' => ''])->assertSessionDoesntHaveErrors('topic');
+
+        $this->createMember([
+            'become_speaker' => 1,
+            'topic'          => '',
+        ])->assertSessionHasErrors('topic');
+    }
+
+    /** @test */
+    public function it_requires_a_description_if_member_is_speaker()
+    {
+        $this->createMember(['description' => ''])->assertSessionDoesntHaveErrors('description');
+
+        $this->createMember([
+            'become_speaker' => 1,
+            'description'    => '',
+        ])->assertSessionHasErrors('description');
+    }
+
+    /**
+     * @param array $data
+     * @return \Illuminate\Testing\TestResponse
+     */
+    protected function createMember($data = [])
+    {
+        $conference = Conference::factory()->create();
+
+        return $this->post(route('members.store', $conference), $data);
     }
 }

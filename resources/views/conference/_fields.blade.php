@@ -5,7 +5,6 @@
           type="text"
           value="{{ $conference->topic }}"
           label="Тема"
-          class="col-md-8"
       />
   </div>
 
@@ -15,7 +14,6 @@
           type="date"
           value="{{ $conference->start_date }}"
           label="Дата проведения"
-          class="col-md-8"
       />
   </div>
 </div>
