@@ -28,7 +28,12 @@
                                 <i class="fa fa-edit"></i>
                             </a>
 
-                            <x-delete-button actionUrl="{{ route('conferences.destroy', $conference) }}"/>
+                            <x-form-button
+                                method="DELETE"
+                                actionUrl="{{ route('conferences.destroy', $conference) }}"
+                                style="danger"
+                                icon='fa fa-trash-alt'
+                            ></x-form-button>
                         </td>
                     </tr>
                 @endforeach

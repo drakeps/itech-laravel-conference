@@ -4,18 +4,19 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class DeleteButton extends Component
+class FormButton extends Component
 {
+    public $method;
     public $actionUrl;
+    public $style;
+    public $icon;
 
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct($actionUrl)
+    public function __construct($method, $actionUrl, $style = '', $icon = '')
     {
+        $this->method    = $method;
         $this->actionUrl = $actionUrl;
+        $this->style     = $style;
+        $this->icon      = $icon;
     }
 
     /**
@@ -25,6 +26,6 @@ class DeleteButton extends Component
      */
     public function render()
     {
-        return view('components.delete-button');
+        return view('components.form-button');
     }
 }
