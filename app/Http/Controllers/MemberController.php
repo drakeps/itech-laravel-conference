@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberRequest;
 use App\Models\Conference;
-use App\Models\Member;
-use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {

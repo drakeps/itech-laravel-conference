@@ -10,4 +10,9 @@ class Member extends Model
     use HasFactory;
 
     protected $fillable = ['firstname', 'lastname', 'email', 'unit'];
+
+    public function getFullNameAttribute()
+    {
+        return $this->lastname . ' ' . $this->firstname;
+    }
 }

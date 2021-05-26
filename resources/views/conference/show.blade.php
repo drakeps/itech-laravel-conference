@@ -21,7 +21,7 @@
                 @foreach ($lectures as $lecture)
                     <tr>
                         <td>{{ $lecture->topic }}</td>
-                        <td>{{ $lecture->member->name }}</td>
+                        <td>{{ $lecture->member->fullName }}</td>
                         <td>{{ $lecture->member->unit }}</td>
                         <td></td>
                     </tr>
