@@ -19,7 +19,7 @@ class LectureController extends Controller
     {
         $lecture->accept();
 
-        flash('Доклад подтвержден!');
+        flash("Доклад $lecture->topic подтвержден!", 'success');
 
         return redirect()->route('conferences.show', $lecture->conference);
     }
@@ -28,7 +28,7 @@ class LectureController extends Controller
     {
         $lecture->reject();
 
-        flash('Доклад отклонен!');
+        flash("Доклад $lecture->topic отклонен!", 'danger');
 
         return redirect()->route('conferences.show', $lecture->conference);
     }

@@ -13,7 +13,9 @@
                 <tr>
                     <th scope="col">Тема</th>
                     <th scope="col">Дата проведения</th>
-                    <th scope="col"></th>
+                    @role('manager')
+                        <th scope="col"></th>
+                    @endrole
                 </tr>
             </thead>
             <tbody>
@@ -23,18 +25,20 @@
                             <a href="{{ route('conferences.show', $conference) }}">{{ $conference->topic }}</a>
                         </td>
                         <td>{{ $conference->start_date }}</td>
-                        <td>
-                            <a class="btn btn-primary" href="{{ route('conferences.edit', $conference) }}">
-                                <i class="fa fa-edit"></i>
-                            </a>
+                        @role('manager')
+                            <td>
+                                <a class="btn btn-primary" href="{{ route('conferences.edit', $conference) }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
 
-                            <x-form-button
-                                method="DELETE"
-                                actionUrl="{{ route('conferences.destroy', $conference) }}"
-                                style="danger"
-                                icon='fa fa-trash-alt'
-                            ></x-form-button>
-                        </td>
+                                <x-form-button
+                                    method="DELETE"
+                                    actionUrl="{{ route('conferences.destroy', $conference) }}"
+                                    style="danger"
+                                    icon='fa fa-trash-alt'
+                                ></x-form-button>
+                            </td>
+                        @endrole
                     </tr>
                 @endforeach
             </tbody>
