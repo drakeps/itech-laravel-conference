@@ -5,7 +5,9 @@
     
     <div class="my-3">
         <a class="btn btn-primary" href="{{ route('members.index', $conference) }}">Список участников</a>
+        @if ($conference->isDoesNotHappened())
         <a class="btn btn-success" href="{{ route('members.create', $conference) }}">Хочу участвовать</a>
+        @endif
         <a class="btn btn-outline-info" href="{{ route('home') }}">К списку конференции</a>
     </div><hr>
 

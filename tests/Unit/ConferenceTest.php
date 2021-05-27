@@ -21,4 +21,20 @@ class ConferenceTest extends TestCase
 
         $this->assertCount(2, $conference->acceptedLectures());
     }
+
+    /** @test */
+    public function it_check_if_conference_happened()
+    {
+        $conference = Conference::factory()->create([
+            'start_date' => now()->addDay(),
+        ]);
+
+        $this->assertFalse($conference->isHappened());
+
+        $conference = Conference::factory()->create([
+            'start_date' => now()->subDay(),
+        ]);
+
+        $this->assertTrue($conference->isHappened());
+    }
 }

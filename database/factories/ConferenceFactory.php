@@ -23,7 +23,7 @@ class ConferenceFactory extends Factory
     {
         return [
             'topic'      => $this->faker->sentence(),
-            'start_date' => $this->faker->date(),
+            'start_date' => now()->addDay(),
         ];
     }
 }

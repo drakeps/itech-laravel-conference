@@ -34,4 +34,22 @@ class ReadConferencesTest extends TestCase
             ->assertSuccessful()
             ->assertSee($conference->topic);
     }
+
+    /** @test */
+    public function a_user_can_see_button_become_member_only_if_conference_did_not_happened()
+    {
+        $conference = Conference::factory()->create([
+            'start_date' => now()->addDay(),
+        ]);
+
+        $this->get(route('conferences.show', $conference))
+            ->assertSee('Хочу участвовать');
+
+        $heppenedConference = Conference::factory()->create([
+            'start_date' => now()->subDay(),
+        ]);
+
+        $this->get(route('conferences.show', $heppenedConference))
+            ->assertDontSee('Хочу участвовать');
+    }
 }

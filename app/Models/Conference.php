@@ -37,6 +37,11 @@ class Conference extends Model
         return $this->lectures()->accepted()->get();
     }
 
+    public function scopeSortByStartDate($query, $direction = 'desc')
+    {
+        return $query->orderBy('start_date', $direction);
+    }
+
     public function getStartDateAttribute()
     {
         if (!isset($this->attributes['start_date'])) {
@@ -44,5 +49,15 @@ class Conference extends Model
         }
 
         return Carbon::parse($this->attributes['start_date'])->format('d.m.Y');
+    }
+
+    public function isHappened()
+    {
+        return Carbon::parse($this->start_date)->lessThan(now());
+    }
+
+    public function isDoesNotHappened()
+    {
+        return !$this->isHappened();
     }
 }

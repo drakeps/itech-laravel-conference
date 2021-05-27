@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MemberRequest;
 use App\Models\Conference;
 use App\Models\Lecture;
-use App\Models\Member;
 use App\Models\User;
 use App\Notifications\NewLectureHasBeenAdded;
 
@@ -28,6 +27,8 @@ class MemberController extends Controller
      */
     public function create(Conference $conference)
     {
+        abort_if($conference->isHappened(), 404);
+
         return view('members.create', compact('conference'));
     }
 
@@ -39,6 +40,8 @@ class MemberController extends Controller
      */
     public function store(Conference $conference, MemberRequest $request)
     {
+        abort_if($conference->isHappened(), 404);
+
         $member = $conference->members()->create($request->only(['firstname', 'lastname', 'email', 'unit']));
 
         if ($request->become_speaker) {

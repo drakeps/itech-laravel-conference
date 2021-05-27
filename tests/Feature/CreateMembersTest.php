@@ -153,6 +153,21 @@ class CreateMembersTest extends TestCase
         Notification::assertNothingSent();
     }
 
+    /** @test */
+    public function a_user_cannot_become_a_member_if_conference_happened()
+    {
+        $conference = Conference::factory()->create([
+            'start_date' => now()->subDay(),
+        ]);
+
+        $this->post(route('members.store', $conference), [
+            'firstname' => 'John',
+            'lastname'  => 'Doe',
+            'email'     => 'john@doe.com',
+            'unit'      => 'Департамент разработки',
+        ])->assertNotFound();
+    }
+
     /**
      * @param array $data
      * @return \Illuminate\Testing\TestResponse
