@@ -110,6 +110,6 @@ class ConferenceController extends Controller
 
         flash('Конференция успешно удалена', 'success');
 
-        return redirect()->route('conferences.index');
+        return redirect()->route('home');
     }
 }

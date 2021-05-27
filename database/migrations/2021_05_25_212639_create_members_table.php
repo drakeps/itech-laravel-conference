@@ -16,7 +16,6 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('conference_id');
-            $table->bigInteger('lecture_id')->nullable();
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Conference;
 use App\Models\Lecture;
+use App\Models\Member;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LectureFactory extends Factory
@@ -24,6 +25,7 @@ class LectureFactory extends Factory
     {
         return [
             'conference_id' => Conference::factory(),
+            'member_id'     => Member::factory(),
             'topic'         => $this->faker->sentence(),
             'description'   => $this->faker->sentence(),
         ];
@@ -45,5 +47,12 @@ class LectureFactory extends Factory
                 'accepted' => false,
             ];
         });
+    }
+
+    public function withoutEvents()
+    {
+        $this->modelName()::flushEventListeners();
+
+        return $this;
     }
 }

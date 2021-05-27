@@ -19,8 +19,9 @@ class ReadLecturesTest extends TestCase
 
         $conference = Conference::factory()->create();
         $lectures   = Lecture::factory()
+            ->withoutEvents()
             ->count(5)
-            ->has(Member::factory())
+            ->for(Member::factory())
             ->for($conference)
             ->create();
 
@@ -41,14 +42,14 @@ class ReadLecturesTest extends TestCase
         $lectures = Lecture::factory()
             ->count(3)
             ->for($conference)
-            ->has(Member::factory())
+            ->for(Member::factory())
             ->create();
 
         $acceptedLectures = Lecture::factory()
             ->count(2)
             ->accepted()
             ->for($conference)
-            ->has(Member::factory())
+            ->for(Member::factory())
             ->create();
 
         $response = $this->get(route('conferences.show', $conference));
@@ -68,7 +69,7 @@ class ReadLecturesTest extends TestCase
         $lecture = Lecture::factory()
             ->accepted()
             ->for(Conference::factory())
-            ->has(Member::factory())
+            ->for(Member::factory())
             ->create();
 
         $this->get(route('lectures.show', $lecture))
@@ -85,8 +86,9 @@ class ReadLecturesTest extends TestCase
         $this->loginAs('manager');
 
         $lecture = Lecture::factory()
+            ->withoutEvents()
             ->for(Conference::factory())
-            ->has(Member::factory())
+            ->for(Member::factory())
             ->create();
 
         $this->get(route('lectures.show', $lecture))
@@ -98,7 +100,7 @@ class ReadLecturesTest extends TestCase
     {
         $lecture = Lecture::factory()
             ->for(Conference::factory())
-            ->has(Member::factory())
+            ->for(Member::factory())
             ->create();
 
         $this->get(route('lectures.show', $lecture))

@@ -16,6 +16,7 @@ class CreateLecturesTable extends Migration
         Schema::create('lectures', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('conference_id');
+            $table->bigInteger('member_id');
             $table->string('topic');
             $table->text('description');
             $table->boolean('accepted')->nullable();

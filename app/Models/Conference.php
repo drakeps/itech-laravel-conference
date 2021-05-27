@@ -60,4 +60,14 @@ class Conference extends Model
     {
         return !$this->isHappened();
     }
+
+    public function addNewMember($data)
+    {
+        return $this->members()->create($data);
+    }
+
+    public function addNewLecture($data)
+    {
+        return $this->lectures()->create($data);
+    }
 }

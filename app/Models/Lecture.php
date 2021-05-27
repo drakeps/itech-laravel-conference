@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\NewLectureHasBeenAdded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,11 +10,23 @@ class Lecture extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['topic', 'description'];
+    protected $fillable = ['topic', 'description', 'conference_id', 'member_id'];
 
     protected $casts = [
         'accepted' => 'boolean',
     ];
+
+    /**
+     * Boot the lecture instance.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($lecture) {
+            User::haveRole('manager')->get()->each->notify(new NewLectureHasBeenAdded($lecture));
+        });
+    }
 
     /**
      * Get the conference that owns the Lecture
@@ -26,13 +39,13 @@ class Lecture extends Model
     }
 
     /**
-     * Get the member associated with the Lecture
+     * Get member that owns the Lecture
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function member()
     {
-        return $this->hasOne(Member::class);
+        return $this->belongsTo(Member::class);
     }
 
     public function accept()

@@ -21,13 +21,13 @@ class ReadMembersTest extends TestCase
         $rejectedSpeaker = Member::factory()
             ->count(2)
             ->for($conference)
-            ->for(Lecture::factory()->for($conference))
+            ->has(Lecture::factory()->for($conference))
             ->create();
 
         $acceptedSpeaker = Member::factory()
             ->count(3)
             ->for($conference)
-            ->for(Lecture::factory()->for($conference))
+            ->has(Lecture::factory()->for($conference))
             ->create();
 
         $members = Member::factory()

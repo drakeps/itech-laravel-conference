@@ -15,7 +15,7 @@ class UpdateLectureTest extends TestCase
     {
         $this->loginAs('manager');
 
-        $lecture = Lecture::factory()->create();
+        $lecture = Lecture::factory()->withoutEvents()->create();
 
         $this->assertTrue($lecture->isNew);
 

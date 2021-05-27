@@ -22,13 +22,11 @@ class Member extends Model
     }
 
     /**
-     * Get the lecture that owns the Member
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function lecture()
     {
-        return $this->belongsTo(Lecture::class);
+        return $this->hasOne(Lecture::class);
     }
 
     public function getFullNameAttribute()
