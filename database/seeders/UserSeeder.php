@@ -20,13 +20,13 @@ class UserSeeder extends Seeder
         $manager = User::create([
             'name'     => 'Manager',
             'email'    => 'b24.itech@gmail.com',
-            'password' => bcrypt('BM159MMqE'),
+            'password' => bcrypt('12345678'),
         ]);
         $manager->roles()->attach($roleManager);
 
         $manager2 = User::create([
             'name'     => 'Manager',
-            'email'    => 'john@doe.com',
+            'email'    => 'drakeps@mail.ru',
             'password' => bcrypt('12345678'),
         ]);
         $manager2->roles()->attach($roleManager);

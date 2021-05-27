@@ -51,6 +51,11 @@ class Conference extends Model
         return Carbon::parse($this->attributes['start_date'])->format('d.m.Y');
     }
 
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = Carbon::parse($value)->format('Y-m-d');
+    }
+
     public function isHappened()
     {
         return Carbon::parse($this->start_date)->lessThan(now());

@@ -38,7 +38,7 @@
                 <x-forms.input
                     name="unit"
                     type="text"
-                    label="Департамент разработки"
+                    label="Подразделение"
                     required
                 />
             </div>
