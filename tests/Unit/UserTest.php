@@ -37,4 +37,18 @@ class UserTest extends TestCase
         $this->assertTrue($userWithRole->hasRole('manager'));
         $this->assertTrue($userWithRole->hasRole(['manager']));
     }
+
+    /** @test */
+    public function it_returns_oly_users_have_role()
+    {
+        $role = Role::create(['name' => 'manager']);
+
+        $userWithoutRole = User::factory()->create();
+
+        $userWithRole = User::factory()->create();
+        $userWithRole->roles()->attach($role);
+
+        $this->assertCount(1, User::haveRole('manager')->get());
+        $this->assertTrue(User::haveRole('manager')->first()->roles->first()->is($role));
+    }
 }

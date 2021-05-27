@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+
 trait HasRoles
 {
     /**
@@ -53,5 +55,22 @@ trait HasRoles
         }
 
         return false;
+    }
+
+    /**
+     * Scope the model query to certain roles only.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string|array $roles
+     */
+    public function scopeHaveRole($query, $roles)
+    {
+        if (is_string($roles)) {
+            $roles = [$roles];
+        }
+
+        return $query->whereHas('roles', function (Builder $query) use ($roles) {
+            $query->whereIn('name', $roles);
+        });
     }
 }
