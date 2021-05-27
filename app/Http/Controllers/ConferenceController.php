@@ -51,7 +51,7 @@ class ConferenceController extends Controller
 
         flash('Конференция успешно добавлена!', 'success');
 
-        return redirect()->route('conferences.index');
+        return redirect()->route('home');
     }
 
     /**

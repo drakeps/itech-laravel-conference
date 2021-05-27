@@ -11,7 +11,8 @@
   <div class="form-group col-md-4">
       <x-forms.input
           name="start_date"
-          type="date"
+          class="datepicker"
+          type="text"
           value="{{ $conference->start_date }}"
           label="Дата проведения"
       />

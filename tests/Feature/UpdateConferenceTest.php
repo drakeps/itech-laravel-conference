@@ -22,11 +22,11 @@ class UpdateConferenceTest extends TestCase
 
         $this->patch(route('conferences.update', $conference), [
             'topic'      => 'UPDATED Крутая конференция',
-            'start_date' => '17-07-2022',
+            'start_date' => '17.07.2022',
         ])->assertRedirect();
 
         $this->assertEquals($conference->fresh()->topic, 'UPDATED Крутая конференция');
-        $this->assertEquals($conference->fresh()->start_date, '17-07-2022');
+        $this->assertEquals($conference->fresh()->start_date, '17.07.2022');
     }
 
     /** @test */

@@ -20,14 +20,14 @@ class CreateConferencesTest extends TestCase
 
         $this->post(route('conferences.store'), [
             'topic'      => 'Крутая конференция',
-            'start_date' => '17-07-2021',
+            'start_date' => '17.07.2021',
         ])->assertRedirect();
 
         $conference = Conference::first();
 
         $this->assertNotNull($conference);
         $this->assertEquals($conference->topic, 'Крутая конференция');
-        $this->assertEquals($conference->start_date, '17-07-2021');
+        $this->assertEquals($conference->start_date, '17.07.2021');
     }
 
     /** @test */
@@ -66,6 +66,9 @@ class CreateConferencesTest extends TestCase
         $this->loginAs('manager');
 
         $this->post(route('conferences.store'), ['start_date' => 'not-valid-date'])
+            ->assertSessionHasErrors('start_date');
+
+        $this->post(route('conferences.store'), ['start_date' => '31.05.48484894'])
             ->assertSessionHasErrors('start_date');
     }
 }

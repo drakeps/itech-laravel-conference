@@ -4,7 +4,7 @@
         type="{{ $type }}" 
         id="{{ $getId }}" 
         name="{{ $name }}" 
-        class="form-control @if($errors->has($name)) {{ 'is-invalid' }} @endif" 
+        class="form-control @if($errors->has($name)) {{ 'is-invalid' }} @endif {{ $attributes['class'] }}" 
         value="{{ old($name, $value) }}" 
         placeholder="{{ $label }}"
         {{ $attributes }}

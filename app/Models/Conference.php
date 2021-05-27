@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,5 +35,14 @@ class Conference extends Model
     public function acceptedLectures()
     {
         return $this->lectures()->accepted()->get();
+    }
+
+    public function getStartDateAttribute()
+    {
+        if (!isset($this->attributes['start_date'])) {
+            return null;
+        }
+
+        return Carbon::parse($this->attributes['start_date'])->format('d.m.Y');
     }
 }
