@@ -10,7 +10,17 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function login($user = null)
+    protected function createUserByRole($roleName)
+    {
+        $role = Role::create(['name' => $roleName]);
+
+        $user = User::factory()->create();
+        $user->assignRole($role);
+
+        return $user;
+    }
+
+    protected function login($user = null)
     {
         $user = $user ?: User::factory()->create();
 
@@ -19,12 +29,9 @@ abstract class TestCase extends BaseTestCase
         return $user;
     }
 
-    public function loginAs($roleName)
+    protected function loginAs($roleName)
     {
-        $role = Role::create(['name' => $roleName]);
-
-        $user = User::factory()->create();
-        $user->assignRole($role);
+        $user = $this->createUserByRole($roleName);
 
         return $this->login($user);
     }

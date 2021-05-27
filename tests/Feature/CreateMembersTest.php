@@ -5,7 +5,10 @@ namespace Tests\Feature;
 use App\Models\Conference;
 use App\Models\Lecture;
 use App\Models\Member;
+use App\Models\User;
+use App\Notifications\NewLectureHasBeenAdded;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class CreateMembersTest extends TestCase
@@ -111,6 +114,43 @@ class CreateMembersTest extends TestCase
             'become_speaker' => 1,
             'description'    => '',
         ])->assertSessionHasErrors('description');
+    }
+
+    /** @test */
+    public function it_notify_manager_if_new_speaker_member_added()
+    {
+        $this->withoutExceptionHandling();
+
+        Notification::fake();
+
+        $this->createUserByRole('manager');
+
+        $this->createMember([
+            'firstname'      => 'John',
+            'lastname'       => 'Doe',
+            'email'          => 'john@doe.com',
+            'unit'           => 'Департамент разработки',
+            'become_speaker' => true,
+            'topic'          => 'Тема доклада',
+            'description'    => 'Описание доклада',
+        ]);
+
+        Notification::assertSentTo(User::haveRole('manager')->first(), NewLectureHasBeenAdded::class);
+    }
+
+    /** @test */
+    public function it_does_not_notify_manager_if_new_non_speaker_member_added()
+    {
+        Notification::fake();
+
+        $this->createMember([
+            'firstname' => 'John',
+            'lastname'  => 'Doe',
+            'email'     => 'john@doe.com',
+            'unit'      => 'Департамент разработки',
+        ]);
+
+        Notification::assertNothingSent();
     }
 
     /**

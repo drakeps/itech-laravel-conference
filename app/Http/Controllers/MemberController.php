@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberRequest;
 use App\Models\Conference;
+use App\Models\Lecture;
+use App\Models\Member;
+use App\Models\User;
+use App\Notifications\NewLectureHasBeenAdded;
 
 class MemberController extends Controller
 {
@@ -38,11 +42,14 @@ class MemberController extends Controller
         $member = $conference->members()->create($request->only(['firstname', 'lastname', 'email', 'unit']));
 
         if ($request->become_speaker) {
+            $lecture = Lecture::make($request->only(['topic', 'description']));
             $conference
                 ->lectures()
-                ->create($request->only(['topic', 'description']))
+                ->save($lecture)
                 ->member()
                 ->save($member);
+
+            User::haveRole('manager')->get()->each->notify(new NewLectureHasBeenAdded($lecture));
         }
 
         flash('Спасибо, Ваша заявка на участие в конференции была отправлена', 'success');
