@@ -21,17 +21,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->clearTables();
 
-        $conferences = Conference::factory(10)->create();
-
-        foreach ($conferences as $conference) {
-            Lecture::factory()
-                ->count(5)
-                ->has(Member::factory())
-                ->for($conference)
-                ->create();
-        }
-
         $this->call(UserSeeder::class);
+        $this->call(ConferenceSeeder::class);
     }
 
     public function clearTables()
@@ -42,6 +33,7 @@ class DatabaseSeeder extends Seeder
         User::truncate();
         Conference::truncate();
         Lecture::truncate();
+        Member::truncate();
 
         Schema::enableForeignKeyConstraints();
     }

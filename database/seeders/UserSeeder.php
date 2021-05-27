@@ -18,15 +18,22 @@ class UserSeeder extends Seeder
         $roleManager = Role::create(['name' => 'manager']);
 
         $manager = User::create([
-            'name'     => 'John Doe',
-            'email'    => 'john@doe.ru',
-            'password' => bcrypt('12345678'),
+            'name'     => 'Manager',
+            'email'    => 'b24.itech@gmail.com',
+            'password' => bcrypt('BM159MMqE'),
         ]);
         $manager->roles()->attach($roleManager);
 
+        $manager2 = User::create([
+            'name'     => 'Manager',
+            'email'    => 'john@doe.com',
+            'password' => bcrypt('12345678'),
+        ]);
+        $manager2->roles()->attach($roleManager);
+
         $simpleUser = User::create([
             'name'     => 'Jane Doe',
-            'email'    => 'jane@doe.ru',
+            'email'    => 'jane@doe.com',
             'password' => bcrypt('12345678'),
         ]);
     }
