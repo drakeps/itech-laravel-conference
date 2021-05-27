@@ -25,7 +25,7 @@ class ConferenceRequest extends FormRequest
     {
         return [
             'topic'      => 'required|min:5',
-            'start_date' => 'required|date',
+            'start_date' => 'required|date|date_format:d.m.Y',
         ];
     }
 }

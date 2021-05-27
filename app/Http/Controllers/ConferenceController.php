@@ -22,7 +22,7 @@ class ConferenceController extends Controller
      */
     public function index()
     {
-        $conferences = Conference::paginate(4);
+        $conferences = Conference::sortByStartDate()->paginate(config('itech.conferences_pagination'));
 
         return view('conference.index', compact('conferences'));
     }
