@@ -3,9 +3,11 @@
 @section('content')
     <h1>Cписок конференций</h1>
 
-    <div class="my-3">
-        <a class="btn btn-primary" href="{{ route('conferences.create') }}">Добавить конференцию</a>
-    </div>
+    @role('manager')
+        <div class="my-3">
+            <a class="btn btn-primary" href="{{ route('conferences.create') }}">Добавить конференцию</a>
+        </div>
+    @endrole
 
     @if ($conferences->count())
         <table class="table table-bordered table-hover">
